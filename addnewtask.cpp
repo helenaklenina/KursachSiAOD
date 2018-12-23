@@ -96,7 +96,6 @@ void AddNewTask::on_pushButton_clicked()
             Task task;
             task.setName(ui->lineEdit_4->text());
             task.setText(ui->textEdit->toPlainText());
-            task.setDate(this->date);
             task.setEndDate(ui->dateEdit_4->date());
             task.setEndTime(ui->timeEdit_4->time());
             task.setId(all_tasks->size());
@@ -132,10 +131,6 @@ void AddNewTask::on_pushButton_clicked()
         }
     }
     emit firstWindow();
-}
-
-void AddNewTask::on_lineEdit_textEdited(const QString &arg1){
-
 }
 
 void AddNewTask::setCurrentEndDateTime(QDate date){

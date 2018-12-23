@@ -46,7 +46,8 @@ public:
     void setTrueId();
     bool removeDir (const QString &path);
     void closeEvent(QCloseEvent *);
-    void slot();
+    void slot();   
+    void deleteDiary();
 
 private slots:
 
@@ -64,9 +65,12 @@ private slots:
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_clear_triggered();
+    void on_clear_2_clicked();
 
-    void on_save_triggered();
+   // void on_pushButton_clicked();
+
+signals:
+    void menuWindow();
 
 private:
     Ui::MainWindow *ui;
@@ -75,7 +79,7 @@ private:
     AllTasks *allTasks_window;
     MoreAboutTask *moreAboutTask_window;
     QDate date = QDate::currentDate();
-    QString DIR_NAME = "/C++/Diary";
+    QString DIR_NAME = "/C++/Diarys";
     bool isExit = false;
 };
 

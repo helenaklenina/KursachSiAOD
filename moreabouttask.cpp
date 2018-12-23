@@ -37,7 +37,7 @@ void MoreAboutTask::on_pushButton_clicked()
 {
     editTask_window->editFlag = -1;
     editTask_window->setTask(this->task, this->all_tasks);
-    editTask_window->setWindowTitle("My datebook");
+    editTask_window->setWindowTitle("My diary");
     editTask_window->show();
     this->close();
 
@@ -51,7 +51,6 @@ void MoreAboutTask::setDataToForms(Task *task, std::vector <Task> *tasks){
     } else {
         ui->textEdit_name->setPlainText((*task).getName());
     }
-    ui->textEdit_creatingDate->setPlainText((*task).getDate().toString());
     ui->textEdit_text->setPlainText((*task).getText());
     ui->textEdit_endDate->setPlainText((*task).getEndDate().toString());
     ui->textEdit_endTime->setPlainText((*task).getEndTime().toString());

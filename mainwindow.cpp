@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newTask_window, &AddNewTask::firstWindow, this, &MainWindow::slot);
     moreAboutTask_window = new MoreAboutTask(this);
     connect(moreAboutTask_window, &MoreAboutTask::firstWindow, this, &MainWindow::slot);
-    this->DIR_NAME = "/C++/Diary/SaveTask";
+    this->DIR_NAME = "/C++/Diarys/SaveTask";
 }
 
 MainWindow::~MainWindow()
@@ -24,7 +24,7 @@ void MainWindow::slot(){
 }
 
 void MainWindow::testFunction(){
-    qDebug() << all_tasks[0].getName() << "     " << all_tasks[0].getDate().toString() << "     " << all_tasks[1].getName() << "     " << all_tasks[1].getDate().toString() ;
+    qDebug() << all_tasks[0].getName() << "     " << all_tasks[0].getEndDate().toString() << "     " << all_tasks[1].getName() << "     " << all_tasks[1].getEndDate().toString() ;
 }
 
 QString MainWindow::cleanName(QString name){
@@ -57,7 +57,7 @@ QString MainWindow::cleanName(QString name){
 int MainWindow::searchTrueTask (QString item){
     QString name = cleanName(item);
     for (int i = 0; i < all_tasks.size(); i++){
-        if ((this->date == all_tasks[i].getDate()) && (name == all_tasks[i].getName())){
+        if ((this->date == all_tasks[i].getEndDate()) && (name == all_tasks[i].getName())){
             return i;
         }
     }
@@ -65,7 +65,7 @@ int MainWindow::searchTrueTask (QString item){
 
 bool MainWindow::isCurrentDate(QDate date){
     for (int i = 0; i < all_tasks.size(); i++){
-        if(all_tasks[i].getDate() == date){
+        if(all_tasks[i].getEndDate() == date){
             return true;
         }
     }
@@ -77,12 +77,12 @@ void MainWindow::setListWidget(QDate date){
     sortAllTasks();
     int k = 0;
     for (int i = 0; i < all_tasks.size(); i++){
-        if(all_tasks[i].getDate() == date && all_tasks[i].getIsComplete() == false){
+        if(all_tasks[i].getEndDate() == date && all_tasks[i].getIsComplete() == false){
             k++;
             QString item = QString::number(k) + ".   " + all_tasks[i].getName();
             ui->listWidget->addItem(item);
 
-        } else if (all_tasks[i].getDate() == date && all_tasks[i].getIsComplete() == true){
+        } else if (all_tasks[i].getEndDate() == date && all_tasks[i].getIsComplete() == true){
             k++;
             QString item = QString::number(k) + ".   " + all_tasks[i].getName() + " (выполнено)";
             ui->listWidget->addItem(item);
@@ -158,14 +158,14 @@ void MainWindow::on_pushButton_show_clicked()
     sortAllTasks();
     allTasks_window = new AllTasks(this);
     allTasks_window->setAllTasks(&all_tasks);
-    allTasks_window->setWindowTitle("My datebook");
+    allTasks_window->setWindowTitle("My diary");
     allTasks_window->show();
     ui->listWidget->clear();
 }
 
 void MainWindow::on_add_clicked()
 {
-    newTask_window->setWindowTitle("My datebook");
+    newTask_window->setWindowTitle("My diary");
     newTask_window->setAllTasks(&all_tasks);
     newTask_window->setCurrentEndDateTime(this->date);
     newTask_window->show();
@@ -269,13 +269,13 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
     Task * newTask = &all_tasks[searchTrueTask((*item).text())];
     moreAboutTask_window->setDataToForms(newTask, &all_tasks);
-    moreAboutTask_window->setWindowTitle("My datebook");
+    moreAboutTask_window->setWindowTitle("My diary");
     moreAboutTask_window->show();
 }
 
 
 
-void MainWindow::on_clear_triggered()
+void MainWindow::deleteDiary()
 {
     ui->listWidget->clear();
     QMessageBox del(QMessageBox::Question,
@@ -288,10 +288,11 @@ void MainWindow::on_clear_triggered()
 
     if (del.exec() == QMessageBox::Yes){
         for (int i = 0; i < all_tasks.size(); i ++){
-            return_calendar_color(all_tasks[i].getDate());
+            return_calendar_color(all_tasks[i].getEndDate());
         }
         this->all_tasks.resize(0);
     }
+    removeDir(DIR_NAME);
 
 }
 
@@ -332,8 +333,7 @@ void MainWindow::saveTasks(){
                 isCom = "0";
             }
             QString str = QString::number(all_tasks[i].getId()) + "\r\n" + all_tasks[i].getName() + "\r\n" + all_tasks[i].getText() + "\r\n" +
-                                                  all_tasks[i].getDate().toString() + "\r\n" + isCom + "\r\n" +
-                                                  all_tasks[i].getEndDate().toString() + "\r\n" + all_tasks[i].getEndTime().toString();
+                                                     isCom + "\r\n" + all_tasks[i].getEndDate().toString() + "\r\n" + all_tasks[i].getEndTime().toString() +"\r\n" ;
             stream << str;
             file.close();
         }
@@ -359,19 +359,20 @@ void MainWindow::readTasks(){
                    task.setId(stream.readLine().toInt());
                    task.setName(stream.readLine());
                    task.setText(stream.readLine());
-                   endDate = QDate::fromString(stream.readLine());
-                   task.setEndDate(endDate);
                    if (stream.readLine().toInt() == 1){
                        task.setIsComplete(true);
                    } else {
                        task.setIsComplete(false);
                    }
+                   endDate = QDate::fromString(stream.readLine());
+                   task.setEndDate(endDate);
                    endTime = QTime::fromString(stream.readLine());
                    task.setEndTime(endTime);
+
                 }
                 file.close();
             all_tasks.push_back(task);
-            on_calendarWidget_clicked(all_tasks[i - 1].getDate());
+            on_calendarWidget_clicked(all_tasks[i - 1].getEndDate());
             i++;
             }
         }
@@ -379,7 +380,15 @@ void MainWindow::readTasks(){
     on_calendarWidget_clicked(QDate::currentDate());
 }
 
-void MainWindow::on_save_triggered()
+void MainWindow::on_clear_2_clicked()
 {
-    saveTasks();
+    deleteDiary();
 }
+
+
+/*void MainWindow::on_pushButton_clicked()
+{
+    on_exit_triggered();
+    emit menuWindow();
+
+}*/

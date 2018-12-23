@@ -6,33 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>525</width>
-    <height>719</height>
+    <width>788</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="verticalLayoutWidget">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>561</width>
-     <height>721</height>
+     <x>10</x>
+     <y>40</y>
+     <width>782</width>
+     <height>331</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>10</number>
-    </property>
-    <property name="topMargin">
-     <number>10</number>
-    </property>
-    <property name="bottomMargin">
-     <number>15</number>
-    </property>
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="1">
+     <widget class="QListWidget" name="overdueTask"/>
+    </item>
+    <item row="0" column="1">
      <widget class="QLabel" name="label">
       <property name="font">
        <font>
@@ -47,61 +41,47 @@
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>Дэдлайны|   Название задачи</string>
-      </property>
-     </widget>
+    <item row="2" column="2" colspan="2">
+     <widget class="QListWidget" name="notCompleteTask"/>
     </item>
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Выполненные задачи:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QListWidget" name="completeTask"/>
-    </item>
-    <item>
+    <item row="1" column="1">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Просроченные задачи:</string>
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QListWidget" name="overdueTask"/>
-    </item>
-    <item>
+    <item row="1" column="2">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Невыполненные задачи:</string>
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QListWidget" name="notCompleteTask"/>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Выполненные задачи:</string>
+      </property>
+     </widget>
     </item>
-    <item>
+    <item row="2" column="0">
+     <widget class="QListWidget" name="completeTask"/>
+    </item>
+    <item row="3" column="3">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Закрыть</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
      <widget class="QPushButton" name="pushButton_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
+      <property name="maximumSize">
        <size>
-        <width>0</width>
-        <height>40</height>
+        <width>100</width>
+        <height>16777215</height>
        </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
       </property>
       <property name="text">
        <string>Удалить</string>
@@ -112,5 +92,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AllTasks</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>469</x>
+     <y>681</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>281</x>
+     <y>658</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

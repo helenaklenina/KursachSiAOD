@@ -17,10 +17,6 @@ void Task::setText(QString text){
     this->text = text;
 }
 
-void Task::setDate(QDate date){
-    this->date = date;
-}
-
 void Task::setEndDate(QDate end_date){
     this->end_date = end_date;
 }
@@ -43,10 +39,6 @@ QString Task::getName(){
 
 QString Task::getText(){
     return this->text;
-}
-
-QDate Task::getDate(){
-    return this->date;
 }
 
 QDate Task::getEndDate(){

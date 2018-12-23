@@ -27,26 +27,31 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    menu.cpp \
     addnewtask.cpp \
     alltasks.cpp \
     moreabouttask.cpp \
-    task.cpp
+    task.cpp \
+    menu.cpp \
+    addnewdiary.cpp \
+    diary.cpp
 
 HEADERS += \
         mainwindow.h \
-    menu.h \
     addnewtask.h \
     alltasks.h \
     moreabouttask.h \
-    task.h
+    task.h \
+    menu.h \
+    addnewdiary.h \
+    diary.h
 
 FORMS += \
         mainwindow.ui \
-    menu.ui \
     addnewtask.ui \
     alltasks.ui \
-    moreabouttask.ui
+    moreabouttask.ui \
+    menu.ui \
+    addnewdiary.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
