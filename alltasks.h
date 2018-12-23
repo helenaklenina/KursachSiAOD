@@ -28,8 +28,6 @@ public:
 private slots:
     void on_pushButton_2_clicked();
 
-    void on_more_clicked();
-
     void on_completeTask_itemDoubleClicked(QListWidgetItem *item);
 
     void on_overdueTask_itemDoubleClicked(QListWidgetItem *item);
