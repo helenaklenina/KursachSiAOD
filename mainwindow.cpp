@@ -353,21 +353,19 @@ void MainWindow::readTasks(){
             Task task;
             if (file.open( QIODevice::ReadOnly)){
                 QTextStream stream(&file);
-                QDate date, endDate;
+                QDate endDate;
                 QTime endTime;
                 if(!file.atEnd()){
                    task.setId(stream.readLine().toInt());
                    task.setName(stream.readLine());
                    task.setText(stream.readLine());
-                   date = QDate::fromString(stream.readLine());
-                   task.setDate(date);
+                   endDate = QDate::fromString(stream.readLine());
+                   task.setEndDate(endDate);
                    if (stream.readLine().toInt() == 1){
                        task.setIsComplete(true);
                    } else {
                        task.setIsComplete(false);
                    }
-                   endDate = QDate::fromString(stream.readLine());
-                   task.setEndDate(endDate);
                    endTime = QTime::fromString(stream.readLine());
                    task.setEndTime(endTime);
                 }
