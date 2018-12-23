@@ -46,7 +46,8 @@ public:
     void setTrueId();
     bool removeDir (const QString &path);
     void closeEvent(QCloseEvent *);
-    void slot();
+    void slot();   
+    void deleteDiary();
 
 private slots:
 
@@ -64,9 +65,7 @@ private slots:
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_clear_triggered();
-
-    void on_save_triggered();
+    void on_clear_2_clicked();
 
 private:
     Ui::MainWindow *ui;

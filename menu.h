@@ -1,11 +1,22 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include <QDialog>
 
-class Menu
+namespace Ui {
+class Menu;
+}
+
+class Menu : public QDialog
 {
+    Q_OBJECT
+
 public:
-    Menu();
+    explicit Menu(QWidget *parent = nullptr);
+    ~Menu();
+
+private:
+    Ui::Menu *ui;
 };
 
 #endif // MENU_H

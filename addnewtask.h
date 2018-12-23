@@ -30,7 +30,6 @@ public:
 
 
 private slots:
-    void on_lineEdit_textEdited(const QString &arg1);
     void on_pushButton_clicked();
 
 signals:

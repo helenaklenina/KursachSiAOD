@@ -21,10 +21,6 @@ void AllTasks::slot(){
     setListWidget();
 }
 
-void AllTasks::on_more_clicked(){
-
-}
-
 void AllTasks::setAllTasks(std::vector <Task> *all_tasks){
     this->all_tasks = all_tasks;
     setListWidget();
@@ -58,7 +54,8 @@ void AllTasks::setListWidget(){
         } else if((*all_tasks)[i].getIsComplete() == true){
             QString item = (*all_tasks)[i].getEndDate().toString()  + "|   " + (*all_tasks)[i].getName();
             ui->completeTask->addItem(item);
-        } else if((*all_tasks)[i].getIsComplete() == false && (*all_tasks)[i].getEndDate() < QDate::currentDate()){
+        } else if(((*all_tasks)[i].getIsComplete() == false && (*all_tasks)[i].getEndDate() < QDate::currentDate()) ||
+                  (( *all_tasks)[i].getEndDate() == QDate::currentDate() && (*all_tasks)[i].getEndTime() < QTime::currentTime())){
             QString item = (*all_tasks)[i].getEndDate().toString()  + "|   " + (*all_tasks)[i].getName();
             ui->overdueTask->addItem(item);
         }
@@ -116,7 +113,7 @@ void AllTasks::on_notCompleteTask_itemDoubleClicked(QListWidgetItem *item)
 {
     Task * newTask = &((*all_tasks)[searchTrueTask((*item).text())]);
     moreAboutTask_window->setDataToForms(newTask, all_tasks);
-    moreAboutTask_window->setWindowTitle("My datebook");
+    moreAboutTask_window->setWindowTitle("My diary");
     moreAboutTask_window->setI();
     moreAboutTask_window->show();
     this->close();
@@ -127,7 +124,7 @@ void AllTasks::on_completeTask_itemDoubleClicked(QListWidgetItem *item)
     moreAboutTask_window = new MoreAboutTask(this);
     Task * newTask = &((*all_tasks)[searchTrueTask((*item).text())]);
     moreAboutTask_window->setDataToForms(newTask, all_tasks);
-    moreAboutTask_window->setWindowTitle("My datebook");
+    moreAboutTask_window->setWindowTitle("My diary");
     moreAboutTask_window->setI();
     moreAboutTask_window->show();
     this->close();
@@ -138,7 +135,7 @@ void AllTasks::on_overdueTask_itemDoubleClicked(QListWidgetItem *item)
     moreAboutTask_window = new MoreAboutTask(this);
     Task * newTask = &((*all_tasks)[searchTrueTask((*item).text())]);
     moreAboutTask_window->setDataToForms(newTask, all_tasks);
-    moreAboutTask_window->setWindowTitle("My datebook");
+    moreAboutTask_window->setWindowTitle("My diary");
     moreAboutTask_window->setI();
     moreAboutTask_window->show();
     this->close();
