@@ -139,9 +139,9 @@
      <string>My diary</string>
     </property>
     <addaction name="save_2"/>
-    <addaction name="clear_2"/>
+    <addaction name="clear"/>
+    <addaction name="create_Diary_2"/>
     <addaction name="exit_2"/>
-    <addaction name="creaDiary"/>
    </widget>
    <addaction name="menuMy_diary"/>
   </widget>
@@ -153,12 +153,12 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="clear_2">
+  <action name="create_Diary_2">
    <property name="text">
-    <string>Очистить ежедневник</string>
+    <string>Создать новый ежедневник</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+D</string>
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="exit_2">
@@ -169,12 +169,12 @@
     <string>Esc</string>
    </property>
   </action>
-  <action name="creaDiary">
+  <action name="clear">
    <property name="text">
-    <string>Создать новый ежедневник</string>
+    <string>Очистить ежедневник</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+N</string>
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

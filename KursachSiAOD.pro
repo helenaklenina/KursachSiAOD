@@ -43,8 +43,7 @@ FORMS += \
         mainwindow.ui \
     addnewtask.ui \
     alltasks.ui \
-    moreabouttask.ui \
-    addnewdiary.ui
+    moreabouttask.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

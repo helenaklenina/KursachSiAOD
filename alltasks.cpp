@@ -48,13 +48,14 @@ void AllTasks::setListWidget(){
     ui->notCompleteTask->clear();
     ui->overdueTask->clear();
     for (int i = 0; i < all_task->size(); i++){
-        if((*all_task)[i].getEndDate() > QDate::currentDate() && (*all_task)[i].getIsComplete() == false){
+        if((*all_task)[i].getEndDate() >= QDate::currentDate() && (*all_task)[i].getIsComplete() == false){
             QString item = (*all_task)[i].getEndDate().toString()  + "|   " + (*all_task)[i].getName();
             ui->notCompleteTask->addItem(item);
         } else if((*all_task)[i].getIsComplete() == true){
             QString item = (*all_task)[i].getEndDate().toString()  + "|   " + (*all_task)[i].getName();
             ui->completeTask->addItem(item);
-        } else if(((*all_task)[i].getIsComplete() == false && (*all_task)[i].getEndDate() <= QDate::currentDate()) ||
+        } else
+            if(((*all_task)[i].getIsComplete() == false && (*all_task)[i].getEndDate() < QDate::currentDate()) ||
                   (( *all_task)[i].getEndDate() == QDate::currentDate() && (*all_task)[i].getEndTime() < QTime::currentTime())){
             QString item = (*all_task)[i].getEndDate().toString()  + "|   " + (*all_task)[i].getName();
             ui->overdueTask->addItem(item);

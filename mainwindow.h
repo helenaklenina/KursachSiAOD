@@ -65,11 +65,11 @@ private slots:
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_clear_2_triggered();
+    void on_create_Diary_2_triggered();
 
     void on_save_2_triggered();
 
-    void on_createDiary_triggered();
+    void on_clear_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -281,20 +281,28 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 void MainWindow::deleteDiary()
 {
     ui->listWidget->clear();
-    QMessageBox del(QMessageBox::Question,
-                tr("Очистка"),
-                tr("Вы действительно хотите очистить ежедневник?"),
-                QMessageBox::Yes | QMessageBox::No,
-                this);
-        del.setButtonText(QMessageBox::Yes, tr("Да"));
-        del.setButtonText(QMessageBox::No, tr("Нет"));
+    if(NewDiary == false) {
+        QMessageBox del(QMessageBox::Question,
+                    tr("Очистка"),
+                    tr("Вы действительно хотите очистить ежедневник?"),
+                    QMessageBox::Yes | QMessageBox::No,
+                    this);
+            del.setButtonText(QMessageBox::Yes, tr("Да"));
+            del.setButtonText(QMessageBox::No, tr("Нет"));
 
-    if (del.exec() == QMessageBox::Yes){
+        if (del.exec() == QMessageBox::Yes){
+            for (int i = 0; i < all_tasks.size(); i ++){
+                return_calendar_color(all_tasks[i].getEndDate());
+            }
+        }
+    }else if(NewDiary == true){
         for (int i = 0; i < all_tasks.size(); i ++){
             return_calendar_color(all_tasks[i].getEndDate());
         }
-        this->all_tasks.resize(0);
     }
+
+        this->all_tasks.resize(0);
+
 }
 
 bool MainWindow::removeDir (const QString &path){
@@ -391,22 +399,8 @@ void MainWindow::readTasks(const QString &FILE_PATH){
     on_calendarWidget_clicked(QDate::currentDate());
 }
 
-void MainWindow::on_clear_2_triggered()
+void MainWindow::on_create_Diary_2_triggered()
 {
-    deleteDiary();
-    removeDir(DIR_NAME);
-}
-
-void MainWindow::on_save_2_triggered(){
-    if(NewDiary == false) {
-        saveTasks(this->DIR_NAME);
-    }else if(NewDiary == true){
-        saveTasks(this->file_path);
-    }
-
-}
-
-void MainWindow::on_createDiary_triggered(){
     QMessageBox create(QMessageBox::Question,
                 tr("Новый Ежедневник"),
                 tr("Вы действительно хотите закрыть этот ежедневник и создать новый?"),
@@ -421,5 +415,20 @@ void MainWindow::on_createDiary_triggered(){
         this->file_path = "/C++/Diarys/SaveTaskNEW";
         readTasks(file_path);
     }
+}
+
+void MainWindow::on_save_2_triggered(){
+    if(NewDiary == false) {
+        saveTasks(this->DIR_NAME);
+    }else if(NewDiary == true){
+        saveTasks(this->file_path);
+    }
+
+}
+
+void MainWindow::on_clear_triggered(){
+
+    deleteDiary();
+    removeDir(DIR_NAME);
 
 }
