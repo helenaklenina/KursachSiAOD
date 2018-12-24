@@ -20,7 +20,7 @@ class AddNewTask : public QDialog
 
 public:
     int editFlag = 0;
-    explicit AddNewTask(QWidget *parent = 0);
+    explicit AddNewTask(QWidget *parent = nullptr);
     ~AddNewTask();
 
 

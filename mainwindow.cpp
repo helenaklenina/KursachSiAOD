@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(newTask_window, &AddNewTask::firstWindow, this, &MainWindow::slot);
     moreAboutTask_window = new MoreAboutTask(this);
     connect(moreAboutTask_window, &MoreAboutTask::firstWindow, this, &MainWindow::slot);
+    //moreAboutTask_window = new MoreAboutTask(this);
+   // connect(this, on_createDiary_clicked(), this, show()));
     this->DIR_NAME = "/C++/Diarys/SaveTask";
 }
 
@@ -145,7 +147,7 @@ void MainWindow::deleteCompletedTasks(){
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-     on_exit_triggered();
+     on_exit_2_triggered();
      if (this->isExit) {
         event->accept();
      } else {
@@ -174,7 +176,6 @@ void MainWindow::on_add_clicked()
 }
 
 
-
 void MainWindow::on_complete_clicked()
 {
     if(ui->listWidget->currentItem()){
@@ -201,7 +202,7 @@ void MainWindow::on_complete_clicked()
     }
 }
 
-void MainWindow::on_exit_triggered()
+void MainWindow::on_exit_2_triggered()
 {
     QMessageBox exit(QMessageBox::Question,
                 tr("Выход"),
@@ -224,12 +225,16 @@ void MainWindow::on_exit_triggered()
             ui->listWidget->clear();
             deleteCompletedTasks();
         }
-        saveTasks();
+
+        if(NewDiary == false) {
+            saveTasks(this->DIR_NAME);
+        }else if(NewDiary == true){
+            saveTasks(this->file_path);
+        }
         this->isExit = true;
         QApplication::exit();
     }
 }
-
 
 
 void MainWindow::on_delete_2_clicked()
@@ -273,8 +278,6 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
     moreAboutTask_window->show();
 }
 
-
-
 void MainWindow::deleteDiary()
 {
     ui->listWidget->clear();
@@ -292,8 +295,6 @@ void MainWindow::deleteDiary()
         }
         this->all_tasks.resize(0);
     }
-    removeDir(DIR_NAME);
-
 }
 
 bool MainWindow::removeDir (const QString &path){
@@ -314,15 +315,20 @@ bool MainWindow::removeDir (const QString &path){
     return result && dir.rmdir(path);
 }
 
-void MainWindow::saveTasks(){
+void MainWindow::saveTasks(const QString &FILE_PATH){
     sortAllTasks();
     setTrueId();
     QTextCodec::setCodecForLocale(QTextCodec::codecForName( "UTF-8" ));
-    QString FILE_NAME;
     QDir dir;
-    dir.mkpath(DIR_NAME);
+    if(NewDiary == false) {
+        this->DIR_NAME = FILE_PATH;
+    }else if(NewDiary == true){
+        this->file_path = FILE_PATH;
+    }
+    dir.mkpath(FILE_PATH);
+    QString FILE_NAME;
     for (int i = 0; i < all_tasks.size(); i ++){
-        FILE_NAME = DIR_NAME + "/" + QString::number(all_tasks[i].getId()) + ".txt";
+        FILE_NAME = FILE_PATH + "/" + QString::number(all_tasks[i].getId()) + ".txt";
         QFile file(FILE_NAME);
         if(file.open( QIODevice::WriteOnly)){
             QTextStream stream(&file);
@@ -340,15 +346,20 @@ void MainWindow::saveTasks(){
     }
 }
 
-void MainWindow::readTasks(){
+void MainWindow::readTasks(const QString &FILE_PATH){
     int i = 1;
     QTextCodec::setCodecForLocale( QTextCodec::codecForName( "UTF-8" ) );
     QDir dir;
-    if(dir.exists(DIR_NAME)){
+    if(NewDiary == false) {
+        this->DIR_NAME = FILE_PATH;
+    }else if(NewDiary == true){
+        this->file_path = FILE_PATH;
+    }
+    if(dir.exists(FILE_PATH)){
         QString FILE_NAME;
-        FILE_NAME = DIR_NAME + "/" + QString::number(i) + ".txt";
+        FILE_NAME = FILE_PATH + "/" + QString::number(i) + ".txt";
         while (QFile(FILE_NAME).exists()){
-            FILE_NAME = DIR_NAME + "/" + QString::number(i) + ".txt";
+            FILE_NAME = FILE_PATH + "/" + QString::number(i) + ".txt";
             QFile file(FILE_NAME);
             Task task;
             if (file.open( QIODevice::ReadOnly)){
@@ -380,15 +391,35 @@ void MainWindow::readTasks(){
     on_calendarWidget_clicked(QDate::currentDate());
 }
 
-void MainWindow::on_clear_2_clicked()
+void MainWindow::on_clear_2_triggered()
 {
     deleteDiary();
+    removeDir(DIR_NAME);
 }
 
+void MainWindow::on_save_2_triggered(){
+    if(NewDiary == false) {
+        saveTasks(this->DIR_NAME);
+    }else if(NewDiary == true){
+        saveTasks(this->file_path);
+    }
 
-/*void MainWindow::on_pushButton_clicked()
-{
-    on_exit_triggered();
-    emit menuWindow();
+}
 
-}*/
+void MainWindow::on_createDiary_triggered(){
+    QMessageBox create(QMessageBox::Question,
+                tr("Новый Ежедневник"),
+                tr("Вы действительно хотите закрыть этот ежедневник и создать новый?"),
+                QMessageBox::Yes | QMessageBox::No,
+                this);
+        create.setButtonText(QMessageBox::Yes, tr("Да"));
+        create.setButtonText(QMessageBox::No, tr("Нет"));
+
+    if (create.exec() == QMessageBox::Yes){
+        this->NewDiary = true;
+        deleteDiary();
+        this->file_path = "/C++/Diarys/SaveTaskNEW";
+        readTasks(file_path);
+    }
+
+}

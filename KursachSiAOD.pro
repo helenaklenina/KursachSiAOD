@@ -30,27 +30,20 @@ SOURCES += \
     addnewtask.cpp \
     alltasks.cpp \
     moreabouttask.cpp \
-    task.cpp \
-    menu.cpp \
-    addnewdiary.cpp \
-    diary.cpp
+    task.cpp
 
 HEADERS += \
         mainwindow.h \
     addnewtask.h \
     alltasks.h \
     moreabouttask.h \
-    task.h \
-    menu.h \
-    addnewdiary.h \
-    diary.h
+    task.h
 
 FORMS += \
         mainwindow.ui \
     addnewtask.ui \
     alltasks.ui \
     moreabouttask.ui \
-    menu.ui \
     addnewdiary.ui
 
 # Default rules for deployment.

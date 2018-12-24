@@ -28,10 +28,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void setAllTasks(std::vector <Task>);
+    //void setAllTasks(std::vector <Task>);
     void testFunction();
     bool isCurrentDate(QDate);
     void setListWidget(QDate);
@@ -41,8 +41,8 @@ public:
     void return_calendar_color(QDate);
     void sortAllTasks();
     void deleteCompletedTasks();
-    void saveTasks();
-    void readTasks();
+    void saveTasks(const QString &FILE_PATH);
+    void readTasks(const QString &FILE_PATH);
     void setTrueId();
     bool removeDir (const QString &path);
     void closeEvent(QCloseEvent *);
@@ -57,7 +57,7 @@ private slots:
 
     void on_complete_clicked();
 
-    void on_exit_triggered();
+    void on_exit_2_triggered();
 
     void on_delete_2_clicked();
 
@@ -65,12 +65,11 @@ private slots:
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_clear_2_clicked();
+    void on_clear_2_triggered();
 
-   // void on_pushButton_clicked();
+    void on_save_2_triggered();
 
-signals:
-    void menuWindow();
+    void on_createDiary_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -79,8 +78,10 @@ private:
     AllTasks *allTasks_window;
     MoreAboutTask *moreAboutTask_window;
     QDate date = QDate::currentDate();
-    QString DIR_NAME = "/C++/Diarys";
+    QString file_path = "/C++/Diarys/SaveTaskNEW";
+    QString DIR_NAME = "/C++/Diarys/SaveTask";
     bool isExit = false;
+    bool NewDiary = true;
 };
 
 #endif // MAINWINDOW_H

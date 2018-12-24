@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>703</width>
-    <height>601</height>
+    <width>567</width>
+    <height>358</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>30</x>
      <y>10</y>
-     <width>606</width>
-     <height>327</height>
+     <width>511</width>
+     <height>331</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">

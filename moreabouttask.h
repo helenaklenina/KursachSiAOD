@@ -20,7 +20,7 @@ class MoreAboutTask : public QDialog
     Q_OBJECT
 
 public:
-    explicit MoreAboutTask(QWidget *parent = 0);
+    explicit MoreAboutTask(QWidget *parent = nullptr);
     ~MoreAboutTask();
     void setDataToForms(Task*, std::vector <Task> *);
     void setI();

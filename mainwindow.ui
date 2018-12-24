@@ -14,35 +14,16 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>-1</y>
-      <width>591</width>
+      <x>0</x>
+      <y>0</y>
+      <width>621</width>
       <height>341</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" rowspan="2" colspan="2">
-      <widget class="QCalendarWidget" name="calendarWidget">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="autoFillBackground">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="2">
       <widget class="QLabel" name="label">
        <property name="enabled">
@@ -67,14 +48,28 @@
      <item row="1" column="2" colspan="2">
       <widget class="QListWidget" name="listWidget"/>
      </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton">
+     <item row="2" column="2">
+      <widget class="QPushButton" name="delete_2">
        <property name="text">
-        <string>Меню</string>
+        <string>Удалить</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="2" column="3">
+      <widget class="QPushButton" name="complete">
+       <property name="text">
+        <string>Выполнено</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2" colspan="2">
+      <widget class="QPushButton" name="add">
+       <property name="text">
+        <string>Добавить новую задачу</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2">
       <widget class="QPushButton" name="pushButton_show">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -89,7 +84,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Весе задачи</string>
+        <string>Все задачи</string>
        </property>
        <property name="iconSize">
         <size>
@@ -108,31 +103,22 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QPushButton" name="delete_2">
-       <property name="text">
-        <string>Удалить</string>
+     <item row="0" column="0" rowspan="2" colspan="2">
+      <widget class="QCalendarWidget" name="calendarWidget">
+       <property name="enabled">
+        <bool>true</bool>
        </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="complete">
-       <property name="text">
-        <string>Выполнено</string>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="2">
-      <widget class="QPushButton" name="clear_2">
-       <property name="text">
-        <string>Очистить ежедневник</string>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
        </property>
-      </widget>
-     </item>
-     <item row="3" column="2" colspan="2">
-      <widget class="QPushButton" name="add">
-       <property name="text">
-        <string>Добавить новую задачу</string>
+       <property name="autoFillBackground">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -148,20 +134,47 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMy_diary">
+    <property name="title">
+     <string>My diary</string>
+    </property>
+    <addaction name="save_2"/>
+    <addaction name="clear_2"/>
+    <addaction name="exit_2"/>
+    <addaction name="creaDiary"/>
+   </widget>
+   <addaction name="menuMy_diary"/>
   </widget>
-  <action name="save">
+  <action name="save_2">
    <property name="text">
     <string>Сохранить</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
-  <action name="clear">
+  <action name="clear_2">
    <property name="text">
     <string>Очистить ежедневник</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
   </action>
-  <action name="exit">
+  <action name="exit_2">
    <property name="text">
     <string>Выход</string>
+   </property>
+   <property name="shortcut">
+    <string>Esc</string>
+   </property>
+  </action>
+  <action name="creaDiary">
+   <property name="text">
+    <string>Создать новый ежедневник</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>

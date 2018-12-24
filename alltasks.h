@@ -17,7 +17,7 @@ class AllTasks : public QDialog
     Q_OBJECT
 
 public:
-    explicit AllTasks(QWidget *parent = 0);
+    explicit AllTasks(QWidget *parent = nullptr);
     ~AllTasks();
     void setAllTasks(std::vector <Task>*);
     QString cleanName(QString);
@@ -36,7 +36,7 @@ private slots:
 
 private:
     Ui::AllTasks *ui;
-    std::vector <Task> *all_tasks;
+    std::vector <Task> *all_task;
     MoreAboutTask *moreAboutTask_window;
 };
 
